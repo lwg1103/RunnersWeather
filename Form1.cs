@@ -10,11 +10,15 @@ using System.Windows.Forms;
 
 namespace RunnersWeather
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
-        public Form1()
+        private ConsoleLog ConsoleLoger;
+        public MainWindow()
         {
             InitializeComponent();
+            ConsoleLoger = new ConsoleLog(ConsoleLogWindow);
+            ConsoleLoger.AddEntry("Hi!");
+            ConsoleLoger.AddEntry("Let's start!");
         }
     }
 }

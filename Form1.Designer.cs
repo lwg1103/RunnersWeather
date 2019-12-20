@@ -1,6 +1,6 @@
 ﻿namespace RunnersWeather
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         /// Wymagana zmienna projektanta.
@@ -28,13 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.ConsoleLogWindow = new System.Windows.Forms.TextBox();
+            this.SuspendLayout();
+            // 
+            // ConsoleLogWindow
+            // 
+            this.ConsoleLogWindow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ConsoleLogWindow.Location = new System.Drawing.Point(0, 0);
+            this.ConsoleLogWindow.Multiline = true;
+            this.ConsoleLogWindow.Name = "ConsoleLogWindow";
+            this.ConsoleLogWindow.ReadOnly = true;
+            this.ConsoleLogWindow.Size = new System.Drawing.Size(800, 450);
+            this.ConsoleLogWindow.TabIndex = 0;
+            // 
+            // MainWindow
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Controls.Add(this.ConsoleLogWindow);
+            this.Name = "MainWindow";
+            this.Text = "Runner\'s Weather";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.TextBox ConsoleLogWindow;
     }
 }
 
