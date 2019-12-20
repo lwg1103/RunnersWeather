@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RunnersWeather
+namespace RunnersWeather.Logger
 {
-    public class ConsoleLog
+    public class WindowFormConsoleLog : ILogger
     {
         private TextBox textBox;
-        public ConsoleLog(TextBox textBox) => this.textBox = textBox;
+        public WindowFormConsoleLog(TextBox textBox) => this.textBox = textBox;
         
         public void AddEntry(string message)
         {
