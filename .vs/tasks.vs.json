@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "zadanie-Sources",
+      "appliesTo": "Sources/",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "zadanie-Tests",
+      "appliesTo": "Tests/",
+      "type": "launch"
+    }
+  ]
+}
