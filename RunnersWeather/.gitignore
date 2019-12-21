@@ -25,6 +25,8 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
+../RunnersWeatherTests/[Bb]in/
+../RunnersWeatherTests/[Oo]bj/
 [Ll]og/
 
 # Visual Studio 2015/2017 cache/options directory

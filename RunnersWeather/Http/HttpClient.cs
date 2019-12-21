@@ -27,6 +27,8 @@ namespace RunnersWeather.Http
             Instance.SystemHttpClient.DefaultRequestHeaders.Accept.Clear();
             Instance.SystemHttpClient.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
+
+            Instance.SystemHttpClient.DefaultRequestHeaders.Clear();
             Instance.SystemHttpClient.DefaultRequestHeaders.Add("apikey", apiKey);
 
             CultureInfo.CurrentCulture = new CultureInfo("en-US");

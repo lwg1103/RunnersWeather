@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\RunnersWeather"
+    "\\RunnersWeather",
+    "\\RunnersWeatherTests",
+    "\\RunnersWeatherTests\\Smog"
   ],
-  "SelectedNode": "\\RunnersWeather\\RunnersWeather.csproj",
+  "SelectedNode": "\\RunnersWeatherTests\\obj",
   "PreviewInSolutionExplorer": false
 }

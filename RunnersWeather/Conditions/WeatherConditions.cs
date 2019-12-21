@@ -8,9 +8,9 @@ namespace RunnersWeather.Conditions
 {
     public class WeatherConditions
     {
-        public double PM25 { get; set; }
-        public double PM10 { get; set; }
-        public double Temperature { get; set; }
-        public double Humidity { get; set; }
+        public float PM25 { get; set; }
+        public float PM10 { get; set; }
+        public float TEMPERATURE { get; set; }
+        public float HUMIDITY { get; set; }
     }
 }
