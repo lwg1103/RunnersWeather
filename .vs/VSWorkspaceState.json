@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\RunnersWeather",
-    "\\RunnersWeatherTests",
-    "\\RunnersWeatherTests\\Smog"
+    "\\RunnersWeatherTests"
   ],
-  "SelectedNode": "\\RunnersWeatherTests\\obj",
+  "SelectedNode": "\\RunnersWeather\\packages",
   "PreviewInSolutionExplorer": false
 }
