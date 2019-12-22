@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using RunnersWeather.Conditions;
 using RunnersWeather.Logger;
 using RunnersWeather.Smog;
 
@@ -15,12 +16,12 @@ namespace RunnersWeather
             AirlySmogProvider = new AirlySmogProvider(ConsoleLoger);
         }
 
-        private void StartButton_Click(object sender, System.EventArgs e)
+        private async void StartButton_Click(object sender, System.EventArgs e)
         {
             float lng = float.Parse(LongitudeTextBox.Text);
             float lat = float.Parse(LatitudeTextBox.Text);
 
-            AirlySmogProvider.GetCurrentSmogConditionsForCoordinates(lng, lat);
+            WeatherConditions airlyConditions = await AirlySmogProvider.GetCurrentSmogConditionsForCoordinates(lng, lat);
         }
     }
 }
