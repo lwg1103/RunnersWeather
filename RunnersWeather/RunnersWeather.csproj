@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conditions\WeatherConditions.cs" />
+    <Compile Include="Decision\DecisionType.cs" />
     <Compile Include="Decision\DecisionMaker.cs" />
     <Compile Include="Http\HttpClient.cs" />
     <Compile Include="Logger\ILogger.cs" />

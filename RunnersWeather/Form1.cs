@@ -28,13 +28,26 @@ namespace RunnersWeather
             List<WeatherConditions> conditions = new List<WeatherConditions>();
             conditions.Add(airlyConditions);
 
-            if (DecisionMaker.isAGoodWeatherForRunning(conditions))
+            switch (DecisionMaker.CheckWeatherForRunning(conditions))
             {
-                ConsoleLoger.AddEntry("It's a good weather for running!");
-            }
-            else
-            {
-                ConsoleLoger.AddEntry("It's NOT a good weather for running, better stay home!");
+                case DecisionType.OK:
+                    ConsoleLoger.AddEntry("It's a good weather for running!");
+                    break;
+                case DecisionType.LowSmog:
+                    ConsoleLoger.AddEntry("It's NOT good weather for running but with smog mask you can go!");
+                    break;
+                case DecisionType.HeavySmog:
+                    ConsoleLoger.AddEntry("It's NOT good weather for running, too much SMOG!");
+                    break;
+                case DecisionType.TooCold:
+                    ConsoleLoger.AddEntry("It's NOT good weather for running, it's TOO COLD!");
+                    break;
+                case DecisionType.TooHot:
+                    ConsoleLoger.AddEntry("It's NOT good weather for running, it's TOO HOT!");
+                    break;
+                case DecisionType.Rain:
+                    ConsoleLoger.AddEntry("It's NOT good weather for running, it's RAINING!");
+                    break;
             }
         }
     }
