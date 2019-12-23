@@ -1,19 +1,16 @@
 ﻿using RunnersWeather.Conditions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RunnersWeather.Decision
 {
     public static class DecisionMaker
     {
-        public static bool isAGoodWeatherForRunning(List<RunnersWeather.Conditions.WeatherConditions> conditions)
+        public static DecisionType CheckWeatherForRunning(List<RunnersWeather.Conditions.WeatherConditions> conditions)
         {
             WeatherConditions averageCondition = calculateAverages(conditions);
 
-            return isAGoodWeather(averageCondition);
+            return CheckWeather(averageCondition);
         }
 
         private static WeatherConditions calculateAverages(List<WeatherConditions> conditions)
@@ -35,23 +32,27 @@ namespace RunnersWeather.Decision
 
             return averageConditions;
         }
-        private static bool isAGoodWeather(WeatherConditions conditions)
+        private static DecisionType CheckWeather(WeatherConditions conditions)
         {
-            if (conditions.PM25 > 25)
+            if (conditions.PM25 > 25 && conditions.PM25 <= 50)
             {
-                return false;
+                return DecisionType.LowSmog;
+            }
+            else if (conditions.PM25 > 50)
+            {
+                return DecisionType.HeavySmog;
             }
             else if (conditions.TEMPERATURE < 0)
             {
-                return false;
+                return DecisionType.TooCold;
             }
             else if (conditions.TEMPERATURE >= 30 && Math.Round(conditions.TEMPERATURE*0.9 + conditions.HUMIDITY*0.25) >= 45)
             {
-                return false;
+                return DecisionType.TooHot;
             }
             else
             {
-                return true;
+                return DecisionType.OK;
             }
         }
     }
