@@ -3,30 +3,30 @@ using RunnersWeather.Conditions;
 using RunnersWeather.Logger;
 using System.Threading.Tasks;
 
-namespace RunnersWeather.Smog
+namespace RunnersWeather.CurrentConditions
 {
-    public class AirlySmogProvider : ISmogProvider
+    public class AirlyCurrentConditionsProvider : ICurrentConditionsProvider
     {
         private ILogger logger;
-        private string APIKey = "TcY7Pv87COniLs8ySsanDClgwG3hUTBn";
-        private string airlyUrl = "https://airapi.airly.eu/v2/measurements/point?";
+        private readonly string APIKey = "TcY7Pv87COniLs8ySsanDClgwG3hUTBn";
+        private readonly string airlyUrl = "https://airapi.airly.eu/v2/measurements/point?";
 
-        public AirlySmogProvider(ILogger logger) => this.logger = logger;
+        public AirlyCurrentConditionsProvider(ILogger logger) => this.logger = logger;
 
-        public async Task<WeatherConditions> GetCurrentSmogConditionsForCoordinates(float lng, float lat)
+        public async Task<WeatherConditions> GetCurrentConditionsForCoordinates(float lng, float lat)
         {
-            printStartInfo(lng, lat);
+            PrintStartInfo(lng, lat);
 
-            JObject result = await getStatusFromAirly(lng, lat);
+            JObject result = await GetStatusFromAirly(lng, lat);
 
-            WeatherConditions conditions = parseWeatherConditionFromJsonResult(result);
+            WeatherConditions conditions = ParseWeatherConditionFromJsonResult(result);
 
-            printConditionsInfo(conditions);
+            PrintConditionsInfo(conditions);
             
             return conditions;
         }
 
-        private void printConditionsInfo(WeatherConditions conditions)
+        private void PrintConditionsInfo(WeatherConditions conditions)
         {
             logger.AddEntry($"PM25: {conditions.PM25}");
             logger.AddEntry($"PM10: {conditions.PM10}");
@@ -34,7 +34,7 @@ namespace RunnersWeather.Smog
             logger.AddEntry($"HUMIDITY: {conditions.HUMIDITY}");
         }
 
-        private async Task<JObject> getStatusFromAirly(float lng, float lat)
+        private async Task<JObject> GetStatusFromAirly(float lng, float lat)
         {
             var httpClient = Http.HttpClient.Instance;
             httpClient.InitWithApiKey(APIKey);
@@ -42,12 +42,12 @@ namespace RunnersWeather.Smog
             return result;
         }
 
-        private void printStartInfo(float lng, float lat)
+        private void PrintStartInfo(float lng, float lat)
         {
-            logger.AddEntry($"Checking smog and weather for long: {lng} and lat: {lat} on Airly");
+            logger.AddEntry($"Checking conditions for long: {lng} and lat: {lat} on Airly");
         }
 
-        private static WeatherConditions parseWeatherConditionFromJsonResult(JObject result)
+        private static WeatherConditions ParseWeatherConditionFromJsonResult(JObject result)
         {
             WeatherConditions conditions = new WeatherConditions();
             foreach (var value in result["current"]["values"])

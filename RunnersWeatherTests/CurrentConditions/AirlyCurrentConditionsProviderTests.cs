@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RunnersWeather.Logger;
-using RunnersWeather.Smog;
+using RunnersWeather.CurrentConditions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 using RunnersWeather.Conditions;
 
-namespace RunnersWeather.Smog.Tests
+namespace RunnersWeather.CurrentConditions.Tests
 {
     [TestClass()]
-    public class AirlySmogProviderTests
+    public class AirlyCurrentConditionsProviderTests
     {
-        AirlySmogProvider TestSubject;
+        AirlyCurrentConditionsProvider TestSubject;
         private readonly float lng = 17.05177F;
         private readonly float lat = 51.08804F;
 
@@ -23,7 +23,7 @@ namespace RunnersWeather.Smog.Tests
         {
             initTests();
 
-            Assert.IsNotNull(TestSubject.GetCurrentSmogConditionsForCoordinates(lng, lat));
+            Assert.IsNotNull(TestSubject.GetCurrentConditionsForCoordinates(lng, lat));
         }
 
         [TestMethod()]
@@ -31,7 +31,7 @@ namespace RunnersWeather.Smog.Tests
         {
             initTests();
 
-            Assert.IsInstanceOfType(TestSubject.GetCurrentSmogConditionsForCoordinates(lng, lat), typeof(Task<WeatherConditions>));
+            Assert.IsInstanceOfType(TestSubject.GetCurrentConditionsForCoordinates(lng, lat), typeof(Task<WeatherConditions>));
         }
 
         [TestMethod()]
@@ -39,7 +39,7 @@ namespace RunnersWeather.Smog.Tests
         {
             initTests();
 
-            var actualconditions = TestSubject.GetCurrentSmogConditionsForCoordinates(lng, lat);
+            var actualconditions = TestSubject.GetCurrentConditionsForCoordinates(lng, lat);
             var emptyConditions = new WeatherConditions();
 
             Assert.AreNotEqual(emptyConditions.PM10,        actualconditions.Result.PM10);
@@ -54,7 +54,7 @@ namespace RunnersWeather.Smog.Tests
             loggerMock.Setup(logger => logger.AddEntry(""));
             loggerMock.Setup(logger => logger.Clear());
 
-            TestSubject = new AirlySmogProvider(loggerMock.Object);
+            TestSubject = new AirlyCurrentConditionsProvider(loggerMock.Object);
         }
     }
 }

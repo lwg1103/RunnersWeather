@@ -73,7 +73,7 @@
     <Compile Include="Decision\DecisionMakerTests.cs" />
     <Compile Include="Logger\ConsoleLogTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Smog\AirlySmogProviderTests.cs" />
+    <Compile Include="CurrentConditions\AirlyCurrentConditionsProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
