@@ -93,8 +93,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CurrentConditions\AccuweatherCurrentConditionsProvider.cs" />
     <Compile Include="CurrentConditions\AirlyCurrentConditionsProvider.cs" />
+    <Compile Include="CurrentConditions\OpenWeatherCurrentConditionsProvider.cs" />
     <Compile Include="CurrentConditions\ICurrentConditionsProvider.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
