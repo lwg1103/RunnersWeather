@@ -11,13 +11,13 @@ namespace RunnersWeather
     {
         private WindowFormConsoleLog ConsoleLoger;
         private ICurrentConditionsProvider AirlyProvider;
-        private ICurrentConditionsProvider AccuweatherProvider;
+        private ICurrentConditionsProvider OpenWeatherProvider;
         public MainWindow()
         {
             InitializeComponent();
             ConsoleLoger = new WindowFormConsoleLog(ConsoleLogWindow);
             AirlyProvider = new AirlyCurrentConditionsProvider(ConsoleLoger);
-            AccuweatherProvider = new AccuweatherCurrentConditionsProvider(ConsoleLoger);
+            OpenWeatherProvider = new OpenWeatherCurrentConditionsProvider(ConsoleLoger);
         }
 
         private async void StartButton_Click(object sender, System.EventArgs e)
@@ -26,10 +26,11 @@ namespace RunnersWeather
             float lat = float.Parse(LatitudeTextBox.Text);
 
             WeatherConditions airlyConditions = await AirlyProvider.GetCurrentConditionsForCoordinates(lng, lat);
-            WeatherConditions accuweatherConditions = await AccuweatherProvider.GetCurrentConditionsForCoordinates(lng, lat);
+            WeatherConditions openWeatherCondistions = await OpenWeatherProvider.GetCurrentConditionsForCoordinates(lng, lat);
             
             List<WeatherConditions> conditions = new List<WeatherConditions>();
             conditions.Add(airlyConditions);
+            conditions.Add(openWeatherCondistions);
 
             switch (DecisionMaker.CheckWeatherForRunning(conditions))
             {
