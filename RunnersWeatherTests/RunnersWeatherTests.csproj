@@ -51,6 +51,9 @@
     <Reference Include="Moq, Version=4.13.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\RunnersWeather\packages\Moq.4.13.1\lib\net45\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\RunnersWeather\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -70,10 +73,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CurrentConditions\AccuweatherCurrentConditionsProviderTests.cs" />
     <Compile Include="Decision\DecisionMakerTests.cs" />
     <Compile Include="Logger\ConsoleLogTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Smog\AirlySmogProviderTests.cs" />
+    <Compile Include="CurrentConditions\AirlyCurrentConditionsProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

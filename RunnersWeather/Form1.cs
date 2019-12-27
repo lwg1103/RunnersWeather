@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using RunnersWeather.Conditions;
+using RunnersWeather.CurrentConditions;
 using RunnersWeather.Logger;
-using RunnersWeather.Smog;
+using RunnersWeather.Conditions;
 using RunnersWeather.Decision;
 
 namespace RunnersWeather
@@ -10,12 +10,14 @@ namespace RunnersWeather
     public partial class MainWindow : Form
     {
         private WindowFormConsoleLog ConsoleLoger;
-        private ISmogProvider AirlySmogProvider;
+        private ICurrentConditionsProvider AirlyProvider;
+        private ICurrentConditionsProvider AccuweatherProvider;
         public MainWindow()
         {
             InitializeComponent();
             ConsoleLoger = new WindowFormConsoleLog(ConsoleLogWindow);
-            AirlySmogProvider = new AirlySmogProvider(ConsoleLoger);
+            AirlyProvider = new AirlyCurrentConditionsProvider(ConsoleLoger);
+            AccuweatherProvider = new AccuweatherCurrentConditionsProvider(ConsoleLoger);
         }
 
         private async void StartButton_Click(object sender, System.EventArgs e)
@@ -23,7 +25,8 @@ namespace RunnersWeather
             float lng = float.Parse(LongitudeTextBox.Text);
             float lat = float.Parse(LatitudeTextBox.Text);
 
-            WeatherConditions airlyConditions = await AirlySmogProvider.GetCurrentSmogConditionsForCoordinates(lng, lat);
+            WeatherConditions airlyConditions = await AirlyProvider.GetCurrentConditionsForCoordinates(lng, lat);
+            WeatherConditions accuweatherConditions = await AccuweatherProvider.GetCurrentConditionsForCoordinates(lng, lat);
             
             List<WeatherConditions> conditions = new List<WeatherConditions>();
             conditions.Add(airlyConditions);

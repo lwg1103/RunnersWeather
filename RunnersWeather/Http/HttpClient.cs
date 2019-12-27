@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace RunnersWeather.Http
 {
-    public class HttpClient
+    public sealed class HttpClient : IHttpClient
     {
         private readonly System.Net.Http.HttpClient SystemHttpClient = new System.Net.Http.HttpClient();
 
@@ -24,12 +24,17 @@ namespace RunnersWeather.Http
 
         public void InitWithApiKey(string apiKey)
         {
+            Init();
+            Instance.SystemHttpClient.DefaultRequestHeaders.Add("apikey", apiKey);
+        }
+        
+        public void Init()
+        {
             Instance.SystemHttpClient.DefaultRequestHeaders.Accept.Clear();
             Instance.SystemHttpClient.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
             Instance.SystemHttpClient.DefaultRequestHeaders.Clear();
-            Instance.SystemHttpClient.DefaultRequestHeaders.Add("apikey", apiKey);
 
             CultureInfo.CurrentCulture = new CultureInfo("en-US");
         }
@@ -37,12 +42,23 @@ namespace RunnersWeather.Http
         public async Task<JObject> GetAsync(string url)
         {
             HttpResponseMessage response = await Instance.SystemHttpClient.GetAsync(url);
+
             string result = await response.Content.ReadAsStringAsync();
 
-            var jsonOptions = new JsonSerializerOptions();
-            jsonOptions.MaxDepth = 1;
+            if (IsArray(result))
+                result = TrimArrayChars(result);
 
             return JObject.Parse(result);
+        }
+
+        private bool IsArray(string message)
+        {
+            return message[0] == '[' && message[message.Length - 1] == ']';
+        }
+
+        private string TrimArrayChars(string message)
+        {
+            return message.Substring(1, message.Length - 2);
         }
     }
 }
