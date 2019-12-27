@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace RunnersWeather.Http
 {
-    public sealed class HttpClient
+    public sealed class HttpClient : IHttpClient
     {
         private readonly System.Net.Http.HttpClient SystemHttpClient = new System.Net.Http.HttpClient();
 
@@ -45,21 +45,18 @@ namespace RunnersWeather.Http
 
             string result = await response.Content.ReadAsStringAsync();
 
-            if (isArray(result))
-                result = trimArrayChars(result);
-
-            var jsonOptions = new JsonSerializerOptions();
-            jsonOptions.MaxDepth = 1;
+            if (IsArray(result))
+                result = TrimArrayChars(result);
 
             return JObject.Parse(result);
         }
 
-        private bool isArray(string message)
+        private bool IsArray(string message)
         {
             return message[0] == '[' && message[message.Length - 1] == ']';
         }
 
-        private string trimArrayChars(string message)
+        private string TrimArrayChars(string message)
         {
             return message.Substring(1, message.Length - 2);
         }

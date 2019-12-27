@@ -1,15 +1,18 @@
 ﻿using Newtonsoft.Json.Linq;
 using RunnersWeather.Conditions;
+using RunnersWeather.Http;
 using RunnersWeather.Logger;
 using System.Threading.Tasks;
 
 namespace RunnersWeather.CurrentConditions
 {
-    public class AirlyCurrentConditionsProvider : ICurrentConditionsProvider
+    public class AirlyCurrentConditionsProvider : BaseConditionsProvider, ICurrentConditionsProvider
     {
-        private ILogger logger;
+        private readonly ILogger logger;
         private readonly string APIKey = "TcY7Pv87COniLs8ySsanDClgwG3hUTBn";
         private readonly string airlyUrl = "https://airapi.airly.eu/v2/measurements/point?";
+        private IHttpClient httpClient = HttpClient.Instance;
+        public void SetHttpClient(IHttpClient client) => httpClient = client;
 
         public AirlyCurrentConditionsProvider(ILogger logger) => this.logger = logger;
 
@@ -25,7 +28,7 @@ namespace RunnersWeather.CurrentConditions
             
             return conditions;
         }
-
+        
         private void PrintConditionsInfo(WeatherConditions conditions)
         {
             logger.AddEntry($"PM25: {conditions.PM25}");
@@ -36,7 +39,6 @@ namespace RunnersWeather.CurrentConditions
 
         private async Task<JObject> GetStatusFromAirly(float lng, float lat)
         {
-            var httpClient = Http.HttpClient.Instance;
             httpClient.InitWithApiKey(APIKey);
             JObject result = await httpClient.GetAsync($"{airlyUrl}lat={lat.ToString("F5")}&lng={lng.ToString("F5")}");
             return result;

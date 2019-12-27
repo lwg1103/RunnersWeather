@@ -1,17 +1,19 @@
 ﻿using RunnersWeather.Conditions;
 using RunnersWeather.Logger;
-using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using RunnersWeather.Http;
 
 namespace RunnersWeather.CurrentConditions
 {
-    class AccuweatherCurrentConditionsProvider : ICurrentConditionsProvider
+    public class AccuweatherCurrentConditionsProvider : BaseConditionsProvider, ICurrentConditionsProvider
     {
         private ILogger logger;
         private readonly string APIKey = "I9MHNG84XD5dtmuAeXqGqE3aZANdPiL7";
         private readonly string locationUrl = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?";
         private readonly string conditionsUrl = "http://dataservice.accuweather.com/currentconditions/v1/";
+        private IHttpClient httpClient = HttpClient.Instance;
+        public void SetHttpClient(IHttpClient client) => httpClient = client;
 
         public AccuweatherCurrentConditionsProvider(ILogger logger) => this.logger = logger;
 
@@ -60,17 +62,7 @@ namespace RunnersWeather.CurrentConditions
         {
             WeatherConditions conditions = new WeatherConditions();
 
-            var temporary1 = result;
-            var temporary2 = result["Temperature"];
-            var temporary3 = result["Temperature"]["Metric"];
-            var temporary4 = result["Temperature"]["Metric"]["Value"];
-
-            foreach (var value in result["Temperature"]["Metric"])
-            {
-                var temp = float.Parse(value["Value"].ToString());
-
-                conditions.TEMPERATURE = temp;
-            }
+            conditions.TEMPERATURE = result["Temperature"]["Metric"]["Value"].Value<float>();
 
             return conditions;
         }
