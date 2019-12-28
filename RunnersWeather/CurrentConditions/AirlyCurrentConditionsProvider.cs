@@ -2,13 +2,14 @@
 using RunnersWeather.Conditions;
 using RunnersWeather.Logger;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace RunnersWeather.CurrentConditions
 {
     public class AirlyCurrentConditionsProvider : BaseConditionsProvider, ICurrentConditionsProvider
     {
         protected override string Name => "Airly";
-        private readonly string APIKey = "TcY7Pv87COniLs8ySsanDClgwG3hUTBn";
+        private readonly string APIKey = ConfigurationManager.AppSettings["AirlyApiKey"];
         private readonly string airlyUrl = "https://airapi.airly.eu/v2/measurements/point?";
 
         public AirlyCurrentConditionsProvider(ILogger logger) : base(logger) { }

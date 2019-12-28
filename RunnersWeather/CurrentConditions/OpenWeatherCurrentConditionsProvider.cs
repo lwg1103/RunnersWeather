@@ -1,15 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
 using RunnersWeather.Conditions;
-using RunnersWeather.Http;
 using RunnersWeather.Logger;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace RunnersWeather.CurrentConditions
 {
     public class OpenWeatherCurrentConditionsProvider : BaseConditionsProvider, ICurrentConditionsProvider
     {
         protected override string Name => "OpenWeather";
-        private readonly string APIKey = "1fcb7d183cfcaeb5b72ee5407b766d55";
+        private readonly string APIKey = ConfigurationManager.AppSettings["OpenWeatherApiKey"];
         private readonly string url = "http://api.openweathermap.org/data/2.5/weather?";
 
         public OpenWeatherCurrentConditionsProvider(ILogger logger) : base(logger) { }
