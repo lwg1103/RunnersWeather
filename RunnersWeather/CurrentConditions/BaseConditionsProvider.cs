@@ -10,8 +10,12 @@ namespace RunnersWeather.CurrentConditions
     {
         protected  readonly ILogger logger;
         protected abstract string Name { get; }
-        protected IHttpClient httpClient = HttpClient.Instance;
-        public void SetHttpClient(IHttpClient client) => httpClient = client;
+        private IHttpClient httpClient = Http.HttpClient.Instance;
+        public IHttpClient HttpClient
+        {
+            get => httpClient;
+            set { httpClient = value; }
+        }
 
         public BaseConditionsProvider(ILogger logger) => this.logger = logger;
 

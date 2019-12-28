@@ -16,9 +16,9 @@ namespace RunnersWeather.CurrentConditions
 
         protected override async Task<JObject> GetStatusFromAPI(float lng, float lat)
         {
-            httpClient.Init();
+            HttpClient.Init();
 
-            return await httpClient.GetAsync($"{url}lat={lat.ToString("F5")}&lon={lng.ToString("F5")}&appid={APIKey}");
+            return await HttpClient.GetAsync($"{url}lat={lat.ToString("F5")}&lon={lng.ToString("F5")}&appid={APIKey}");
         }
 
         protected override WeatherConditions ParseWeatherConditionFromJsonResult(JObject result)

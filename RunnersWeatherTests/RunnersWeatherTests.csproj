@@ -73,6 +73,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CurrentConditions\CurrentConditionsProviderTestsBase.cs" />
     <Compile Include="CurrentConditions\OpenWeatherCurrentConditionsProviderTests.cs" />
     <Compile Include="Decision\DecisionMakerTests.cs" />
     <Compile Include="Logger\ConsoleLogTests.cs" />
