@@ -25,8 +25,6 @@ namespace RunnersWeather.CurrentConditions
         {
             WeatherConditions conditions = new WeatherConditions
             {
-                //PM10 = null,
-                //PM25 = null,
                 TEMPERATURE = result["main"]["feels_like"].Value<float>() - 272.15f, //response in K
                 HUMIDITY = result["main"]["humidity"].Value<float>()
             };
