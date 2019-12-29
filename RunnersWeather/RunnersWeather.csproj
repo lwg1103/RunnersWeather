@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conditions\AverageWeatherConditionsCalculator.cs" />
     <Compile Include="Conditions\WeatherConditions.cs" />
     <Compile Include="CurrentConditions\BaseConditionsProvider.cs" />
     <Compile Include="Decision\DecisionType.cs" />

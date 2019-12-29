@@ -6,39 +6,9 @@ namespace RunnersWeather.Decision
 {
     public static class DecisionMaker
     {
-        public static DecisionType CheckWeatherForRunning(List<RunnersWeather.Conditions.WeatherConditions> conditions)
+        public static DecisionType CheckWeatherForRunning(WeatherConditions conditions)
         {
-            WeatherConditions averageCondition = calculateAverages(conditions);
-
-            return CheckWeather(averageCondition);
-        }
-
-        private static WeatherConditions calculateAverages(List<WeatherConditions> conditions)
-        {
-            WeatherConditions averageConditions = new WeatherConditions();
-
-            foreach (var condition in conditions)
-            {
-                averageConditions.PM10 += condition.PM10;
-                averageConditions.PM25 += condition.PM25;
-                averageConditions.HUMIDITY += condition.HUMIDITY;
-                averageConditions.TEMPERATURE += condition.TEMPERATURE;
-            }
-
-            averageConditions.PM10 /=           (float)conditions.Count;
-            averageConditions.PM25 /=           (float)conditions.Count;
-            averageConditions.HUMIDITY /=       (float)conditions.Count;
-            averageConditions.TEMPERATURE /=    (float)conditions.Count;
-
-            return averageConditions;
-        }
-        private static DecisionType CheckWeather(WeatherConditions conditions)
-        {
-            if (conditions.PM25 > 25 && conditions.PM25 <= 50)
-            {
-                return DecisionType.LowSmog;
-            }
-            else if (conditions.PM25 > 50)
+            if (conditions.PM25 > 50)
             {
                 return DecisionType.HeavySmog;
             }
@@ -46,14 +16,26 @@ namespace RunnersWeather.Decision
             {
                 return DecisionType.TooCold;
             }
-            else if (conditions.TEMPERATURE >= 30 && Math.Round(conditions.TEMPERATURE*0.9 + conditions.HUMIDITY*0.25) >= 45)
+            else if (conditions.TEMPERATURE >= 30 && calculateHeatFactor(conditions) >= 45)
             {
                 return DecisionType.TooHot;
+            }
+            else if (conditions.PM25 > 25 && conditions.PM25 <= 50)
+            {
+                return DecisionType.LowSmog;
             }
             else
             {
                 return DecisionType.OK;
             }
+        }
+
+        private static float calculateHeatFactor(WeatherConditions conditions)
+        {
+            float temp = conditions.TEMPERATURE ?? 0;
+            float hum = conditions.HUMIDITY ?? 0;
+
+            return (float)Math.Round(temp * 0.9 + hum * 0.25);
         }
     }
 }
