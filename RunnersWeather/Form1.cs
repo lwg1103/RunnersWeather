@@ -9,9 +9,9 @@ namespace RunnersWeather
 {
     public partial class MainWindow : Form
     {
-        private WindowFormConsoleLog ConsoleLoger;
-        private ICurrentConditionsProvider AirlyProvider;
-        private ICurrentConditionsProvider OpenWeatherProvider;
+        private readonly WindowFormConsoleLog ConsoleLoger;
+        private readonly ICurrentConditionsProvider AirlyProvider;
+        private readonly ICurrentConditionsProvider OpenWeatherProvider;
         public MainWindow()
         {
             InitializeComponent();
@@ -32,7 +32,9 @@ namespace RunnersWeather
             conditions.Add(airlyConditions);
             conditions.Add(openWeatherCondistions);
 
-            switch (DecisionMaker.CheckWeatherForRunning(conditions))
+            WeatherConditions averageWeatherConditions = AverageWeatherConditionsCalculator.Calculate(conditions);
+
+            switch (DecisionMaker.CheckWeatherForRunning(averageWeatherConditions))
             {
                 case DecisionType.OK:
                     ConsoleLoger.AddEntry("It's a good weather for running!");
