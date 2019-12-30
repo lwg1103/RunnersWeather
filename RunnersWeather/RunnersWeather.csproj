@@ -85,6 +85,8 @@
     <Compile Include="Decision\DecisionMaker.cs" />
     <Compile Include="Http\HttpClient.cs" />
     <Compile Include="Http\IHttpClient.cs" />
+    <Compile Include="Location\LocationItem.cs" />
+    <Compile Include="Location\LocationsProvider.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Logger\WindowFormConsoleLog.cs" />
     <Compile Include="Form1.cs">

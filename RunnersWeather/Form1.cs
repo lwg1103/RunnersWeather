@@ -4,6 +4,7 @@ using RunnersWeather.CurrentConditions;
 using RunnersWeather.Logger;
 using RunnersWeather.Conditions;
 using RunnersWeather.Decision;
+using RunnersWeather.Location;
 
 namespace RunnersWeather
 {
@@ -15,6 +16,7 @@ namespace RunnersWeather
         public MainWindow()
         {
             InitializeComponent();
+            InitializeCityList();
             ConsoleLoger = new WindowFormConsoleLog(ConsoleLogWindow);
             AirlyProvider = new AirlyCurrentConditionsProvider(ConsoleLoger);
             OpenWeatherProvider = new OpenWeatherCurrentConditionsProvider(ConsoleLoger);
@@ -30,7 +32,7 @@ namespace RunnersWeather
             
             List<WeatherConditions> conditions = new List<WeatherConditions>();
             conditions.Add(airlyConditions);
-            conditions.Add(openWeatherCondistions);
+            conditions.Add(openWeatherCondistions); 
 
             WeatherConditions averageWeatherConditions = AverageWeatherConditionsCalculator.Calculate(conditions);
 
@@ -54,6 +56,22 @@ namespace RunnersWeather
                 case DecisionType.Rain:
                     ConsoleLoger.AddEntry("It's NOT good weather for running, it's RAINING!");
                     break;
+            }
+        }
+
+        private void LocationComboBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            var selectedItem = (LocationItem)LocationComboBox.SelectedItem;
+
+            LongitudeTextBox.Text = selectedItem.Longitude.ToString();
+            LatitudeTextBox.Text = selectedItem.Lattitude.ToString();
+        }
+
+        private void InitializeCityList()
+        {
+            foreach (var location in LocationsProvider.GetSupportedLocations())
+            {
+                LocationComboBox.Items.Add(location);
             }
         }
     }
