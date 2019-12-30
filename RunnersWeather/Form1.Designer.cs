@@ -35,6 +35,7 @@
             this.LongitudeTextBox = new System.Windows.Forms.TextBox();
             this.LatitudeLabel = new System.Windows.Forms.Label();
             this.LongitudeLabel = new System.Windows.Forms.Label();
+            this.LocationComboBox = new System.Windows.Forms.ComboBox();
             this.SettingsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,6 +64,7 @@
             // 
             // SettingsGroupBox
             // 
+            this.SettingsGroupBox.Controls.Add(this.LocationComboBox);
             this.SettingsGroupBox.Controls.Add(this.LatitudeTextBox);
             this.SettingsGroupBox.Controls.Add(this.LongitudeTextBox);
             this.SettingsGroupBox.Controls.Add(this.LatitudeLabel);
@@ -109,6 +111,15 @@
             this.LongitudeLabel.TabIndex = 0;
             this.LongitudeLabel.Text = "Longitude";
             // 
+            // LocationComboBox
+            // 
+            this.LocationComboBox.FormattingEnabled = true;
+            this.LocationComboBox.Location = new System.Drawing.Point(178, 13);
+            this.LocationComboBox.Name = "LocationComboBox";
+            this.LocationComboBox.Size = new System.Drawing.Size(232, 21);
+            this.LocationComboBox.TabIndex = 4;
+            this.LocationComboBox.SelectedIndexChanged += new System.EventHandler(this.LocationComboBox_SelectedIndexChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -138,6 +149,7 @@
         private System.Windows.Forms.Label LongitudeLabel;
         private System.Windows.Forms.TextBox LatitudeTextBox;
         private System.Windows.Forms.TextBox LongitudeTextBox;
+        private System.Windows.Forms.ComboBox LocationComboBox;
     }
 }
 
