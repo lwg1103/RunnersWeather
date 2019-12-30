@@ -35,6 +35,8 @@ At the moment it is not possible to set custom criteria, however this feature is
 ****
 
 # Changelog
+## 1.1.0
+City selector added, now user can select predefined area insted of typing geo coords manually 
 ## 1.0.1
 Fixed average condition calculation when some values are null
 ## 1.0.0 
