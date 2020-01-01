@@ -85,11 +85,13 @@ namespace RunnersWeather
         {
             foreach (var condition in conditions)
             {
+                ConsoleLoger.AddEntry("");
                 ConsoleLoger.AddEntry($"Results from {condition.Provider}");
                 ConsoleLoger.AddEntry($"PM25: {condition.PM25}");
                 ConsoleLoger.AddEntry($"PM10: {condition.PM10}");
-                ConsoleLoger.AddEntry($"TEMPERATURE: {condition.TEMPERATURE}");
-                ConsoleLoger.AddEntry($"HUMIDITY: {condition.HUMIDITY}");
+                ConsoleLoger.AddEntry($"TEMPERATURE [C]: {condition.TEMPERATURE}");
+                ConsoleLoger.AddEntry($"HUMIDITY [%]: {condition.HUMIDITY}");
+                ConsoleLoger.AddEntry($"WIND [m/s]: {condition.WIND}");
             }
         }
     }

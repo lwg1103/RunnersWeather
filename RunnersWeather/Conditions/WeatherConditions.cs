@@ -7,5 +7,6 @@
         public float? PM10 { get; set; }
         public float? TEMPERATURE { get; set; }
         public float? HUMIDITY { get; set; }
+        public float? WIND { get; set; }
     }
 }

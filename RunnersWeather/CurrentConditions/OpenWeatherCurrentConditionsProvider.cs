@@ -23,7 +23,8 @@ namespace RunnersWeather.CurrentConditions
             {
                 Provider = "OpenWeather",
                 TEMPERATURE = result["main"]["feels_like"].Value<float>() - 272.15f, //response in K
-                HUMIDITY = result["main"]["humidity"].Value<float>()
+                HUMIDITY = result["main"]["humidity"].Value<float>(),
+                WIND = result["wind"]["speed"].Value<float>()
             };
 
             return conditions;
