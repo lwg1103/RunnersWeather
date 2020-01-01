@@ -5,21 +5,23 @@ using RunnersWeather.Logger;
 using RunnersWeather.Conditions;
 using RunnersWeather.Decision;
 using RunnersWeather.Location;
+using System.Threading.Tasks;
 
 namespace RunnersWeather
 {
     public partial class MainWindow : Form
     {
         private readonly WindowFormConsoleLog ConsoleLoger;
-        private readonly ICurrentConditionsProvider AirlyProvider;
-        private readonly ICurrentConditionsProvider OpenWeatherProvider;
+        private readonly IConditionsChecker ConditionsChecker;
         public MainWindow()
         {
             InitializeComponent();
             InitializeCityList();
             ConsoleLoger = new WindowFormConsoleLog(ConsoleLogWindow);
-            AirlyProvider = new AirlyCurrentConditionsProvider(ConsoleLoger);
-            OpenWeatherProvider = new OpenWeatherCurrentConditionsProvider(ConsoleLoger);
+
+            ConditionsChecker = new ConditionsChecker();
+            ConditionsChecker.RegisterCurrentConditionProvider(new AirlyCurrentConditionsProvider());
+            ConditionsChecker.RegisterCurrentConditionProvider(new OpenWeatherCurrentConditionsProvider());
         }
 
         private async void StartButton_Click(object sender, System.EventArgs e)
@@ -27,16 +29,21 @@ namespace RunnersWeather
             float lng = float.Parse(LongitudeTextBox.Text);
             float lat = float.Parse(LatitudeTextBox.Text);
 
-            WeatherConditions airlyConditions = await AirlyProvider.GetCurrentConditionsForCoordinates(lng, lat);
-            WeatherConditions openWeatherCondistions = await OpenWeatherProvider.GetCurrentConditionsForCoordinates(lng, lat);
-            
-            List<WeatherConditions> conditions = new List<WeatherConditions>();
-            conditions.Add(airlyConditions);
-            conditions.Add(openWeatherCondistions); 
+            ConsoleLoger.AddEntry($"Checking conditions for long: {lng} and lat: {lat}");
+
+            List<WeatherConditions> conditions = await ConditionsChecker.GetCurrentConditionsForCoordinates(lng, lat);
+
+            PrintConditionsInfo(conditions);
 
             WeatherConditions averageWeatherConditions = AverageWeatherConditionsCalculator.Calculate(conditions);
+            DecisionType calculatedDecision = DecisionMaker.CheckWeatherForRunning(averageWeatherConditions);
 
-            switch (DecisionMaker.CheckWeatherForRunning(averageWeatherConditions))
+            PrintWeatherRecommendations(calculatedDecision);
+        }
+
+        private void PrintWeatherRecommendations(DecisionType calculatedDecision)
+        {
+            switch (calculatedDecision)
             {
                 case DecisionType.OK:
                     ConsoleLoger.AddEntry("It's a good weather for running!");
@@ -72,6 +79,17 @@ namespace RunnersWeather
             foreach (var location in LocationsProvider.GetSupportedLocations())
             {
                 LocationComboBox.Items.Add(location);
+            }
+        }
+        private void PrintConditionsInfo(List<WeatherConditions> conditions)
+        {
+            foreach (var condition in conditions)
+            {
+                ConsoleLoger.AddEntry($"Results from {condition.Provider}");
+                ConsoleLoger.AddEntry($"PM25: {condition.PM25}");
+                ConsoleLoger.AddEntry($"PM10: {condition.PM10}");
+                ConsoleLoger.AddEntry($"TEMPERATURE: {condition.TEMPERATURE}");
+                ConsoleLoger.AddEntry($"HUMIDITY: {condition.HUMIDITY}");
             }
         }
     }
