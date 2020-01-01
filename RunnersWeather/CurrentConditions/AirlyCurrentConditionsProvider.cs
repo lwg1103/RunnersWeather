@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using RunnersWeather.Conditions;
-using RunnersWeather.Logger;
 using System.Threading.Tasks;
 using System.Configuration;
 
@@ -8,11 +7,8 @@ namespace RunnersWeather.CurrentConditions
 {
     public class AirlyCurrentConditionsProvider : BaseConditionsProvider, ICurrentConditionsProvider
     {
-        protected override string Name => "Airly";
         private readonly string APIKey = ConfigurationManager.AppSettings["AirlyApiKey"];
         private readonly string airlyUrl = "https://airapi.airly.eu/v2/measurements/point?";
-
-        public AirlyCurrentConditionsProvider(ILogger logger) : base(logger) { }
 
         protected override async Task<JObject> GetStatusFromAPI(float lng, float lat)
         {
@@ -23,7 +19,7 @@ namespace RunnersWeather.CurrentConditions
 
         protected override WeatherConditions ParseWeatherConditionFromJsonResult(JObject result)
         {
-            WeatherConditions conditions = new WeatherConditions();
+            WeatherConditions conditions = new WeatherConditions() { Provider = "Airly" };
             foreach (var value in result["current"]["values"])
             {
                 string propertyName = value.SelectToken("name").ToString();
