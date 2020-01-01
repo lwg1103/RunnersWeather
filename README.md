@@ -35,6 +35,8 @@ At the moment it is not possible to set custom criteria, however this feature is
 ****
 
 # Changelog
+## 1.2.0
+Wind speed added
 ## 1.1.0
 City selector added, now user can select predefined area insted of typing geo coords manually 
 ## 1.0.1

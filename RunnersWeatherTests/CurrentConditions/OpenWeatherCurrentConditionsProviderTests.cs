@@ -36,6 +36,7 @@ namespace RunnersWeather.CurrentConditions.Tests
 
             Assert.AreNotEqual(emptyConditions.TEMPERATURE, actualconditions.Result.TEMPERATURE);
             Assert.AreNotEqual(emptyConditions.HUMIDITY,    actualconditions.Result.HUMIDITY);
+            Assert.AreNotEqual(emptyConditions.WIND, actualconditions.Result.WIND);
         }
     }
 }
