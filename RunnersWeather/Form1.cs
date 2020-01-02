@@ -36,6 +36,9 @@ namespace RunnersWeather
             PrintConditionsInfo(conditions);
 
             WeatherConditions averageWeatherConditions = AverageWeatherConditionsCalculator.Calculate(conditions);
+
+            PrintConditionsInfo(averageWeatherConditions);
+
             DecisionType calculatedDecision = DecisionMaker.CheckWeatherForRunning(averageWeatherConditions);
 
             PrintWeatherRecommendations(calculatedDecision);
@@ -85,14 +88,19 @@ namespace RunnersWeather
         {
             foreach (var condition in conditions)
             {
-                ConsoleLoger.AddEntry("");
-                ConsoleLoger.AddEntry($"Results from {condition.Provider}");
-                ConsoleLoger.AddEntry($"PM25: {condition.PM25}");
-                ConsoleLoger.AddEntry($"PM10: {condition.PM10}");
-                ConsoleLoger.AddEntry($"TEMPERATURE [C]: {condition.TEMPERATURE}");
-                ConsoleLoger.AddEntry($"HUMIDITY [%]: {condition.HUMIDITY}");
-                ConsoleLoger.AddEntry($"WIND [m/s]: {condition.WIND}");
+                PrintConditionsInfo(condition);
             }
+        }
+
+        private void PrintConditionsInfo(WeatherConditions conditions)
+        {
+            ConsoleLoger.AddEntry("");
+            ConsoleLoger.AddEntry($"Results from {conditions.Provider}");
+            ConsoleLoger.AddEntry($"PM25: {conditions.PM25}");
+            ConsoleLoger.AddEntry($"PM10: {conditions.PM10}");
+            ConsoleLoger.AddEntry($"TEMPERATURE [C]: {conditions.TEMPERATURE}");
+            ConsoleLoger.AddEntry($"HUMIDITY [%]: {conditions.HUMIDITY}");
+            ConsoleLoger.AddEntry($"WIND [m/s]: {conditions.WIND}");
         }
     }
 }

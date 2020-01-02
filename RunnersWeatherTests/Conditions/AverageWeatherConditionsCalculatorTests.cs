@@ -1,11 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RunnersWeather.Conditions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RunnersWeather.CurrentConditions;
 
 namespace RunnersWeather.Conditions.Tests
 {
@@ -22,7 +16,8 @@ namespace RunnersWeather.Conditions.Tests
                 PM10 = 5.2f,
                 PM25 = 10.4f,
                 TEMPERATURE = 15.1f,
-                HUMIDITY = 89.0f
+                HUMIDITY = 89.0f,
+                WIND = 2.0f
             });
 
             conditions.Add(new WeatherConditions
@@ -30,7 +25,8 @@ namespace RunnersWeather.Conditions.Tests
                 PM10 = 5.4f,
                 PM25 = 15.4f,
                 TEMPERATURE = 25.1f,
-                HUMIDITY = 88.0f
+                HUMIDITY = 88.0f,
+                WIND = 3.0f
             });
 
             WeatherConditions expected = new WeatherConditions
@@ -38,7 +34,8 @@ namespace RunnersWeather.Conditions.Tests
                 PM10 = 5.3f,
                 PM25 = 12.9f,
                 TEMPERATURE = 20.1f,
-                HUMIDITY = 88.5f
+                HUMIDITY = 88.5f,
+                WIND = 2.5f
             };
 
             WeatherConditions actual = AverageWeatherConditionsCalculator.Calculate(conditions);
@@ -47,6 +44,7 @@ namespace RunnersWeather.Conditions.Tests
             Assert.AreEqual(expected.PM25, actual.PM25);
             Assert.AreEqual(expected.TEMPERATURE, actual.TEMPERATURE);
             Assert.AreEqual(expected.HUMIDITY, actual.HUMIDITY);
+            Assert.AreEqual(expected.WIND, actual.WIND);
         }
 
         [TestMethod()]
@@ -58,7 +56,8 @@ namespace RunnersWeather.Conditions.Tests
             {
                 PM25 = 10.4f,
                 TEMPERATURE = 15.1f,
-                HUMIDITY = 89.0f
+                HUMIDITY = 89.0f,
+                WIND = 2.5f
             });
 
             conditions.Add(new WeatherConditions
@@ -73,7 +72,8 @@ namespace RunnersWeather.Conditions.Tests
                 PM10 = 5.4f,
                 PM25 = 12.9f,
                 TEMPERATURE = 15.1f,
-                HUMIDITY = 88.5f
+                HUMIDITY = 88.5f,
+                WIND = 2.5f
             };
 
             WeatherConditions actual = AverageWeatherConditionsCalculator.Calculate(conditions);
@@ -82,6 +82,7 @@ namespace RunnersWeather.Conditions.Tests
             Assert.AreEqual(expected.PM25, actual.PM25);
             Assert.AreEqual(expected.TEMPERATURE, actual.TEMPERATURE);
             Assert.AreEqual(expected.HUMIDITY, actual.HUMIDITY);
+            Assert.AreEqual(expected.WIND, actual.WIND);
         }
     }
 }
