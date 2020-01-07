@@ -6,6 +6,7 @@ using RunnersWeather.Conditions;
 using RunnersWeather.Decision;
 using RunnersWeather.Location;
 using System.Threading.Tasks;
+using RunnersWeather.Clothes;
 
 namespace RunnersWeather
 {
@@ -102,5 +103,8 @@ namespace RunnersWeather
             ConsoleLoger.AddEntry($"HUMIDITY [%]: {conditions.HUMIDITY}");
             ConsoleLoger.AddEntry($"WIND [m/s]: {conditions.WIND}");
         }
+
+        private void ClothesToolStripMenuItem_Click(object sender, System.EventArgs e) => (new ClothesWindow()).Show();
+        private void AboutToolStripMenuItem_Click(object sender, System.EventArgs e) => (new AboutBox()).Show();
     }
 }

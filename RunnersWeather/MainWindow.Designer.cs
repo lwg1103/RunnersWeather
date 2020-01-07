@@ -31,23 +31,29 @@
             this.ConsoleLogWindow = new System.Windows.Forms.TextBox();
             this.StartButton = new System.Windows.Forms.Button();
             this.SettingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.LocationComboBox = new System.Windows.Forms.ComboBox();
             this.LatitudeTextBox = new System.Windows.Forms.TextBox();
             this.LongitudeTextBox = new System.Windows.Forms.TextBox();
             this.LatitudeLabel = new System.Windows.Forms.Label();
             this.LongitudeLabel = new System.Windows.Forms.Label();
-            this.LocationComboBox = new System.Windows.Forms.ComboBox();
+            this.MenuStrip = new System.Windows.Forms.MenuStrip();
+            this.OptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ClothesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingsGroupBox.SuspendLayout();
+            this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // ConsoleLogWindow
             // 
             this.ConsoleLogWindow.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ConsoleLogWindow.Location = new System.Drawing.Point(0, 0);
+            this.ConsoleLogWindow.Location = new System.Drawing.Point(0, 24);
             this.ConsoleLogWindow.Multiline = true;
             this.ConsoleLogWindow.Name = "ConsoleLogWindow";
             this.ConsoleLogWindow.ReadOnly = true;
             this.ConsoleLogWindow.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ConsoleLogWindow.Size = new System.Drawing.Size(849, 381);
+            this.ConsoleLogWindow.Size = new System.Drawing.Size(849, 357);
             this.ConsoleLogWindow.TabIndex = 0;
             this.ConsoleLogWindow.Text = "--- console log ---";
             // 
@@ -76,6 +82,15 @@
             this.SettingsGroupBox.TabIndex = 2;
             this.SettingsGroupBox.TabStop = false;
             this.SettingsGroupBox.Text = "Settings";
+            // 
+            // LocationComboBox
+            // 
+            this.LocationComboBox.FormattingEnabled = true;
+            this.LocationComboBox.Location = new System.Drawing.Point(178, 13);
+            this.LocationComboBox.Name = "LocationComboBox";
+            this.LocationComboBox.Size = new System.Drawing.Size(232, 21);
+            this.LocationComboBox.TabIndex = 4;
+            this.LocationComboBox.SelectedIndexChanged += new System.EventHandler(this.LocationComboBox_SelectedIndexChanged);
             // 
             // LatitudeTextBox
             // 
@@ -111,14 +126,46 @@
             this.LongitudeLabel.TabIndex = 0;
             this.LongitudeLabel.Text = "Longitude";
             // 
-            // LocationComboBox
+            // MenuStrip
             // 
-            this.LocationComboBox.FormattingEnabled = true;
-            this.LocationComboBox.Location = new System.Drawing.Point(178, 13);
-            this.LocationComboBox.Name = "LocationComboBox";
-            this.LocationComboBox.Size = new System.Drawing.Size(232, 21);
-            this.LocationComboBox.TabIndex = 4;
-            this.LocationComboBox.SelectedIndexChanged += new System.EventHandler(this.LocationComboBox_SelectedIndexChanged);
+            this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.OptionsToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.MenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.MenuStrip.Name = "MenuStrip";
+            this.MenuStrip.Size = new System.Drawing.Size(849, 24);
+            this.MenuStrip.TabIndex = 3;
+            this.MenuStrip.Text = "menuStrip1";
+            // 
+            // OptionsToolStripMenuItem
+            // 
+            this.OptionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ClothesToolStripMenuItem});
+            this.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem";
+            this.OptionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.OptionsToolStripMenuItem.Text = "Options";
+            // 
+            // ClothesToolStripMenuItem
+            // 
+            this.ClothesToolStripMenuItem.Name = "ClothesToolStripMenuItem";
+            this.ClothesToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.ClothesToolStripMenuItem.Text = "Clothes";
+            this.ClothesToolStripMenuItem.Click += new System.EventHandler(this.ClothesToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -128,6 +175,8 @@
             this.Controls.Add(this.SettingsGroupBox);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.ConsoleLogWindow);
+            this.Controls.Add(this.MenuStrip);
+            this.MainMenuStrip = this.MenuStrip;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(865, 539);
             this.MinimumSize = new System.Drawing.Size(865, 539);
@@ -135,6 +184,8 @@
             this.Text = "Runner\'s Weather";
             this.SettingsGroupBox.ResumeLayout(false);
             this.SettingsGroupBox.PerformLayout();
+            this.MenuStrip.ResumeLayout(false);
+            this.MenuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,6 +201,11 @@
         private System.Windows.Forms.TextBox LatitudeTextBox;
         private System.Windows.Forms.TextBox LongitudeTextBox;
         private System.Windows.Forms.ComboBox LocationComboBox;
+        private System.Windows.Forms.MenuStrip MenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem OptionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ClothesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 
