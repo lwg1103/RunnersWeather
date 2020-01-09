@@ -1,4 +1,5 @@
 ﻿using RunnersWeather.Clothes;
+using RunnersWeather.Conditions;
 using System;
 using System.Data.Entity;
 using System.Windows.Forms;
@@ -22,7 +23,7 @@ namespace RunnersWeather
         private void ClothesPiecesLoad()
         {
             db.ClothesPiecesDbSet.Load();
-            //ClothesDataGridView.AutoGenerateColumns = false;
+            ClothesDataGridView.AutoGenerateColumns = false;
             ClothesDataGridView.DataSource = db.ClothesPiecesDbSet.Local.ToBindingList<ClothesPiece>();
             ClothesNameColumn.DataPropertyName = "Name";
             ClothesNameColumn.Width = 200;
@@ -31,7 +32,7 @@ namespace RunnersWeather
         private void ClothesUsageConditionsLoad()
         {
             db.ClothesUsageConditionsDbSet.Load();
-            //ClothesUsageDataGridView.AutoGenerateColumns = false;
+            ClothesUsageDataGridView.AutoGenerateColumns = false;
             ClothesUsageDataGridView.DataSource = db.ClothesUsageConditionsDbSet.Local.ToBindingList<ClothesUsageConditions>();
             MinValueColumn.DataPropertyName = "MinValue";
             MaxValueColumn.DataPropertyName = "MaxValue";
@@ -39,6 +40,10 @@ namespace RunnersWeather
             ClothesNameUsageColumn.DisplayMember = "Name";
             ClothesNameUsageColumn.ValueMember = "ClothesPieceId";
             ClothesNameUsageColumn.DataPropertyName = "ClothesPieceId";
+            ClothesNameUsageColumn.Width = 150;
+            ParameterColumn.DataSource = WeatherConditions.GetFloatPropertiesNames();
+            ParameterColumn.DataPropertyName = "ParamName";
+            ParameterColumn.Width = 150;
         }
 
         private void SaveClothesButton_Click(object sender, EventArgs e)
