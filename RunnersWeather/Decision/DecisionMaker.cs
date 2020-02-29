@@ -20,6 +20,10 @@ namespace RunnersWeather.Decision
             {
                 return DecisionType.TooHot;
             }
+            else if (conditions.WIND >= 10)
+            {
+                return DecisionType.StrongWind;
+            }
             else if (conditions.PM25 > 25 && conditions.PM25 <= 50)
             {
                 return DecisionType.LowSmog;

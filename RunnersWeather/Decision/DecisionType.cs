@@ -7,6 +7,7 @@
         LowSmog,
         HeavySmog,
         TooHot,
-        Rain
+        Rain,
+        StrongWind
     }
 }
