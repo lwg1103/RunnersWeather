@@ -18,6 +18,7 @@ namespace RunnersWeather
         {
             ClothesPiecesLoad();
             ClothesUsageConditionsLoad();
+            Cursor.Current = Cursors.Default;
         }
 
         private void ClothesPiecesLoad()

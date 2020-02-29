@@ -104,7 +104,12 @@ namespace RunnersWeather
             ConsoleLoger.AddEntry($"WIND [m/s]: {conditions.WIND}");
         }
 
-        private void ClothesToolStripMenuItem_Click(object sender, System.EventArgs e) => (new ClothesWindow()).Show();
+        private void ClothesToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            new ClothesWindow().Show();
+        }
+
         private void AboutToolStripMenuItem_Click(object sender, System.EventArgs e) => (new AboutBox()).Show();
     }
 }
