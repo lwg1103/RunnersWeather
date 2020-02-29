@@ -23,6 +23,14 @@ namespace RunnersWeather.Decision.Tests
         }
 
         [TestMethod()]
+        public void isAGoodWeatherForRunningReturnsStringWindIfWindIsOver10()
+        {
+            WeatherConditions conditions = createConditions(20, 10, 15, 30, 12);
+
+            Assert.AreEqual(DecisionType.StrongWind, DecisionMaker.CheckWeatherForRunning(conditions));
+        }
+
+        [TestMethod()]
         public void isAGoodWeatherForRunningReturnsColdIfTemperatureIsLow()
         {
             WeatherConditions conditions = createConditions(25, 15, -15, 30);
@@ -56,7 +64,7 @@ namespace RunnersWeather.Decision.Tests
             Assert.AreEqual(DecisionType.OK, DecisionMaker.CheckWeatherForRunning(createConditions(25, 15, 30, 60)));
         }
 
-        private WeatherConditions createConditions(float pm10, float pm25, float temp, float hum)
+        private WeatherConditions createConditions(float pm10, float pm25, float temp, float hum, float wind = 0)
         {
             WeatherConditions conditions = new WeatherConditions();
 
@@ -64,6 +72,7 @@ namespace RunnersWeather.Decision.Tests
             conditions.PM25 =           pm25;
             conditions.TEMPERATURE =    temp;
             conditions.HUMIDITY =       hum;
+            conditions.WIND =           wind;
 
             return conditions;
         }
