@@ -115,9 +115,11 @@
     <Compile Include="ClothesWindow.Designer.cs">
       <DependentUpon>ClothesWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clothes\ClothesAdvisor.cs" />
     <Compile Include="Clothes\ClothesContext.cs" />
     <Compile Include="Clothes\ClothesPiece.cs" />
     <Compile Include="Clothes\ClothesUsageConditions.cs" />
+    <Compile Include="Clothes\IClothesAdvisor.cs" />
     <Compile Include="Conditions\AverageWeatherConditionsCalculator.cs" />
     <Compile Include="Conditions\WeatherConditions.cs" />
     <Compile Include="CurrentConditions\BaseConditionsProvider.cs" />
