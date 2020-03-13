@@ -10,6 +10,7 @@ namespace RunnersWeather.Conditions
         public float? TEMPERATURE { get; set; }
         public float? HUMIDITY { get; set; }
         public float? WIND { get; set; }
+        public WeatherType? WEATHERTYPE { get; set; }
 
         public static List<string> GetFloatPropertiesNames()
         {

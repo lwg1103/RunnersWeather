@@ -79,6 +79,7 @@
     <Compile Include="CurrentConditions\ConditionsCheckerTests.cs" />
     <Compile Include="CurrentConditions\CurrentConditionsProviderTestsBase.cs" />
     <Compile Include="CurrentConditions\OpenWeatherCurrentConditionsProviderTests.cs" />
+    <Compile Include="CurrentConditions\OpenWeatherTypeConverterTests.cs" />
     <Compile Include="Decision\DecisionMakerTests.cs" />
     <Compile Include="Location\LocationsProviderTests.cs" />
     <Compile Include="Logger\ConsoleLogTests.cs" />

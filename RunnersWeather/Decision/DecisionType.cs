@@ -8,6 +8,7 @@
         HeavySmog,
         TooHot,
         Rain,
+        BadWeather,
         StrongWind
     }
 }

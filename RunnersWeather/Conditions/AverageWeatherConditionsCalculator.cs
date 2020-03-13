@@ -20,6 +20,13 @@ namespace RunnersWeather.Conditions
                 property.SetValue(averageConditions, averageQuery.Average());
             }
 
+            var weatherType = from cond in conditions 
+                              where cond.WEATHERTYPE != null
+                              select cond.WEATHERTYPE;
+
+            if (weatherType.Count() > 0)
+                averageConditions.WEATHERTYPE = weatherType.FirstOrDefault();
+
             return averageConditions;
         }
     }
