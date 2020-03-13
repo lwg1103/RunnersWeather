@@ -19,12 +19,15 @@ namespace RunnersWeather.CurrentConditions
 
         protected override WeatherConditions ParseWeatherConditionFromJsonResult(JObject result)
         {
+            var weatherTypeConverter = new OpenWeatherTypeConverter();
+
             WeatherConditions conditions = new WeatherConditions
             {
                 Provider = "OpenWeather",
                 TEMPERATURE = result["main"]["feels_like"].Value<float>() - 272.15f, //response in K
                 HUMIDITY = result["main"]["humidity"].Value<float>(),
-                WIND = result["wind"]["speed"].Value<float>()
+                WIND = result["wind"]["speed"].Value<float>(),
+                WEATHERTYPE = weatherTypeConverter.ConvertFromProviderFormat(result["weather"][0]["id"].Value<int>())
             };
 
             return conditions;

@@ -64,7 +64,29 @@ namespace RunnersWeather.Decision.Tests
             Assert.AreEqual(DecisionType.OK, DecisionMaker.CheckWeatherForRunning(createConditions(25, 15, 30, 60)));
         }
 
-        private WeatherConditions createConditions(float pm10, float pm25, float temp, float hum, float wind = 0)
+        [TestMethod()]
+        public void isAGoodWeatherForRunningReturnOkIfSkyIsClearOrCloudy()
+        {
+            Assert.AreEqual(DecisionType.OK, DecisionMaker.CheckWeatherForRunning(createConditions(25, 15, 35, 35, type : WeatherType.Clear)));
+            Assert.AreEqual(DecisionType.OK, DecisionMaker.CheckWeatherForRunning(createConditions(25, 15, 25, 100, type: WeatherType.Clouds)));
+        }
+
+        [TestMethod()]
+        public void isAGoodWeatherForRunningReturnRainIfTheresThunderRainSnow()
+        {
+            Assert.AreEqual(DecisionType.Rain, DecisionMaker.CheckWeatherForRunning(createConditions(25, 15, 35, 35, type: WeatherType.Rain)));
+            Assert.AreEqual(DecisionType.Rain, DecisionMaker.CheckWeatherForRunning(createConditions(25, 15, 35, 35, type: WeatherType.Snow)));
+            Assert.AreEqual(DecisionType.Rain, DecisionMaker.CheckWeatherForRunning(createConditions(25, 15, 35, 35, type: WeatherType.Thunderstorm)));
+        }
+
+        [TestMethod()]
+        public void isAGoodWeatherForRunningReturnBadWeatherIfTheresDrizzleOrFog()
+        {
+            Assert.AreEqual(DecisionType.BadWeather, DecisionMaker.CheckWeatherForRunning(createConditions(25, 15, 35, 35, type: WeatherType.Drizzle)));
+            Assert.AreEqual(DecisionType.BadWeather, DecisionMaker.CheckWeatherForRunning(createConditions(25, 15, 35, 35, type: WeatherType.Other)));
+        }
+
+        private WeatherConditions createConditions(float pm10, float pm25, float temp, float hum, float wind = 0, WeatherType type = WeatherType.Clear)
         {
             WeatherConditions conditions = new WeatherConditions();
 
@@ -73,6 +95,7 @@ namespace RunnersWeather.Decision.Tests
             conditions.TEMPERATURE =    temp;
             conditions.HUMIDITY =       hum;
             conditions.WIND =           wind;
+            conditions.WEATHERTYPE =    type;
 
             return conditions;
         }

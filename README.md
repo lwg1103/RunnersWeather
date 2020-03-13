@@ -8,26 +8,54 @@ Currently data is fetched from Airly (smog, temperature, humidity) and OpenWeath
 
 ## Criterias
 ```
-if (conditions.PM25 > 25 && conditions.PM25 <= 50)
-    {
-        return DecisionType.LowSmog;
-    }
-    else if (conditions.PM25 > 50)
-    {
-        return DecisionType.HeavySmog;
-    }
-    else if (conditions.TEMPERATURE < 0)
-    {
-        return DecisionType.TooCold;
-    }
-    else if (conditions.TEMPERATURE >= 30 && Math.Round(conditions.TEMPERATURE*0.9 + conditions.HUMIDITY*0.25) >= 45)
-    {
-        return DecisionType.TooHot;
-    }
-    else
-    {
-        return DecisionType.OK;
-    }
+
+            /*****************
+             * NO GO SECTION *
+             *****************/
+            if (conditions.PM25 > 50)
+            {
+                return DecisionType.HeavySmog;
+            }
+            else if (conditions.TEMPERATURE < 0)
+            {
+                return DecisionType.TooCold;
+            }
+            else if (conditions.TEMPERATURE >= 30 && calculateHeatFactor(conditions) >= 45)
+            {
+                return DecisionType.TooHot;
+            }
+            else if (conditions.WIND >= 10)
+            {
+                return DecisionType.StrongWind;
+            }
+            
+            switch (conditions.WEATHERTYPE)
+            {
+                case WeatherType.Rain:
+                case WeatherType.Snow:
+                case WeatherType.Thunderstorm:
+                    return DecisionType.Rain;
+            }
+
+            /***************
+             * MID SECTION *
+             ***************/
+            if (conditions.PM25 > 25 && conditions.PM25 <= 50)
+            {
+                return DecisionType.LowSmog;
+            }
+
+            switch (conditions.WEATHERTYPE)
+            {
+                case WeatherType.Drizzle:
+                case WeatherType.Other:
+                    return DecisionType.BadWeather;
+            }
+
+            /**************
+             * OK SECTION *
+             **************/
+            return DecisionType.OK;
 ```
 
 At the moment it is not possible to set custom criteria, however this feature is on the roadmap.
@@ -35,6 +63,8 @@ At the moment it is not possible to set custom criteria, however this feature is
 ****
 
 # Changelog
+## 1.3.0
+Rain conditions added
 ## 1.2.0
 Wind speed added
 ## 1.1.0

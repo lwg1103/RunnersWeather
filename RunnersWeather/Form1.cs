@@ -51,8 +51,11 @@ namespace RunnersWeather
                 case DecisionType.OK:
                     ConsoleLoger.AddEntry("It's a good weather for running!");
                     break;
+                case DecisionType.BadWeather:
+                    ConsoleLoger.AddEntry("It's drizzle or foggy but you can go");
+                    break;
                 case DecisionType.LowSmog:
-                    ConsoleLoger.AddEntry("It's NOT good weather for running but with smog mask you can go!");
+                    ConsoleLoger.AddEntry("It's not good weather for running but with smog mask you can go!");
                     break;
                 case DecisionType.HeavySmog:
                     ConsoleLoger.AddEntry("It's NOT good weather for running, too much SMOG!");
@@ -101,6 +104,7 @@ namespace RunnersWeather
             ConsoleLoger.AddEntry($"TEMPERATURE [C]: {conditions.TEMPERATURE}");
             ConsoleLoger.AddEntry($"HUMIDITY [%]: {conditions.HUMIDITY}");
             ConsoleLoger.AddEntry($"WIND [m/s]: {conditions.WIND}");
+            ConsoleLoger.AddEntry($"TYPE: {conditions.WEATHERTYPE.ToString()}");
         }
     }
 }

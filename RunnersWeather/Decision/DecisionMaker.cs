@@ -1,6 +1,6 @@
 ﻿using RunnersWeather.Conditions;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace RunnersWeather.Decision
 {
@@ -8,6 +8,9 @@ namespace RunnersWeather.Decision
     {
         public static DecisionType CheckWeatherForRunning(WeatherConditions conditions)
         {
+            /*****************
+             * NO GO SECTION *
+             *****************/
             if (conditions.PM25 > 50)
             {
                 return DecisionType.HeavySmog;
@@ -24,14 +27,35 @@ namespace RunnersWeather.Decision
             {
                 return DecisionType.StrongWind;
             }
-            else if (conditions.PM25 > 25 && conditions.PM25 <= 50)
+            
+            switch (conditions.WEATHERTYPE)
+            {
+                case WeatherType.Rain:
+                case WeatherType.Snow:
+                case WeatherType.Thunderstorm:
+                    return DecisionType.Rain;
+            }
+
+            /***************
+             * MID SECTION *
+             ***************/
+            if (conditions.PM25 > 25 && conditions.PM25 <= 50)
             {
                 return DecisionType.LowSmog;
             }
-            else
+
+            switch (conditions.WEATHERTYPE)
             {
-                return DecisionType.OK;
+                case WeatherType.Drizzle:
+                case WeatherType.Other:
+                    return DecisionType.BadWeather;
             }
+
+            /**************
+             * OK SECTION *
+             **************/
+            return DecisionType.OK;
+            
         }
 
         private static float calculateHeatFactor(WeatherConditions conditions)
