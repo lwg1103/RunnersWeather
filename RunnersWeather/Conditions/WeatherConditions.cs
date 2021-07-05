@@ -1,4 +1,6 @@
-﻿namespace RunnersWeather.Conditions
+﻿using System.Collections.Generic;
+
+namespace RunnersWeather.Conditions
 {
     public class WeatherConditions
     {
@@ -9,5 +11,18 @@
         public float? HUMIDITY { get; set; }
         public float? WIND { get; set; }
         public WeatherType? WEATHERTYPE { get; set; }
+
+        public static List<string> GetFloatPropertiesNames()
+        {
+            var result = new List<string>();
+
+            foreach (var property in typeof(WeatherConditions).GetProperties())
+            {
+                if (property.PropertyType == typeof(float?) || property.PropertyType == typeof(float))
+                    result.Add(property.Name);
+            }
+
+            return result;
+        }
     }
 }

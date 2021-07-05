@@ -9,7 +9,7 @@ namespace RunnersWeather.Conditions
         {
             WeatherConditions averageConditions = new WeatherConditions() { Provider = "Averages (calculated)" };
 
-            foreach (var propertyName in GetFloatPropertiesNames(conditions[0]))
+            foreach (var propertyName in WeatherConditions.GetFloatPropertiesNames())
             {
                 var property = conditions[0].GetType().GetProperty(propertyName);
 
@@ -28,20 +28,6 @@ namespace RunnersWeather.Conditions
                 averageConditions.WEATHERTYPE = weatherType.FirstOrDefault();
 
             return averageConditions;
-        }
-
-        private static List<string> GetFloatPropertiesNames(object source)
-        {
-            var result = new List<string>();
-
-            foreach (var property in source.GetType().GetProperties())
-            {
-                if (property.PropertyType == typeof(float?) || property.PropertyType == typeof(float))
-                    result.Add(property.Name);
-                    
-            }
-
-            return result;
         }
     }
 }

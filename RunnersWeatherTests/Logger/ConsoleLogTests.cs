@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Windows.Forms;
-using RunnersWeather.Logger;
 
 namespace RunnersWeather.Logger.Tests
 {
